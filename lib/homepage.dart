@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/categories/edit.dart';
+import 'package:flutter_application_3/chat.dart';
 import 'package:flutter_application_3/note/view.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
@@ -57,6 +58,25 @@ class _homePageState extends State<homePage> {
 
   @override
   void initState() {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      if (message.data['type'] == 'alert') {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => Chat()));
+      }
+    });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      if (message.notification != null) {
+        print('==========================');
+
+        print(message.notification!.title);
+        print(message.notification!.body);
+        print(message.data);
+        print('==========================');
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('${message.notification!.body}')));
+      }
+    });
+
     myrequestPermission();
     getData();
     super.initState();

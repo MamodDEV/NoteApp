@@ -86,12 +86,13 @@ class _MyAppState extends State<MyApp> {
           "addCategory": (context) => const AddCategory(),
           "FilterPage": (context) => const FilterUser()
         },
-        home: (FirebaseAuth.instance.currentUser != null &&
-                FirebaseAuth.instance.currentUser!.emailVerified)
-            ? homePage()
-            : const Login());
+        home: test());
 // mapui()
 // test()
-    // // FilterUser()
+    // // // FilterUser()
+    // (FirebaseAuth.instance.currentUser != null &&
+    //             FirebaseAuth.instance.currentUser!.emailVerified)
+    //         ? homePage()
+    //         : const Login()
   }
 }
